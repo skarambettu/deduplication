@@ -28,7 +28,6 @@ public class DeDupTransformer implements ValueTransformerWithKey<String, String,
         }
 
         System.out.println(">>init");
-
     }
 
     public DeDupTransformer(final String storeName)
@@ -43,12 +42,10 @@ public class DeDupTransformer implements ValueTransformerWithKey<String, String,
 
         if (isDuplicate(key))
         {
-            System.out.println("Its a duplicate :"+key);
             output = null;
         }
         else
         {
-            System.out.println("Not a duplicate :"+key);
             output = value;
             rememberNewEvent(key);
         }
@@ -58,16 +55,13 @@ public class DeDupTransformer implements ValueTransformerWithKey<String, String,
 
     private boolean isDuplicate(final String key)
     {
-        System.out.println("<<" + key);
         String ifExists = stateStore.get(key);
-        System.out.println("Value exists in the store :"+ifExists);
         return(null != ifExists);
     }
 
 
     private void rememberNewEvent(final String key)
     {
-        System.out.println(".." + key);
         stateStore.putIfAbsent(key, key);
     }
 
